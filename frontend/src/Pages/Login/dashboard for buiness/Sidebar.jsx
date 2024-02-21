@@ -51,7 +51,7 @@ function Sidebar({ openSidebarToggle, OpenSidebar }) {
         <li className="sidebar-list-item">
           <Link to="/seasonalAnalytics">
             <BsMenuButtonWideFill className="icon" />
-            Seasonal Analytics
+            Seasonal Analysis
           </Link>
         </li>
         <li className="sidebar-list-item">
