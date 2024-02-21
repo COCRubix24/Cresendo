@@ -17,6 +17,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-router.post("/extract", upload.single('receipt'), extraction);
+// router.post("/extract", upload.fields([{ name: 'shelf1', maxCount: 1 }, { name: 'shelf2', maxCount: 1 }]), extraction);
+router.post("/extract", extraction);
 
 export default router;

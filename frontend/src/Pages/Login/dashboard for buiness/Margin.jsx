@@ -81,11 +81,13 @@ const Margin = () => {
     setPinataResponses(responses);
 
     const data = {
-      pinataIPFS: responses,
+      shelf1: responses[0],
+      shelf2: responses[1]
     }
     console.log(data);
     const response = await axios.post(
       "http://localhost:8800/api/shelf/extract",
+      data
       // {
       //   headers: {
       //     "Content-Type": "application/json"
