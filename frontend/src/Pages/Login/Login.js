@@ -121,7 +121,7 @@ const Login = () => {
 
             checkUserLoggedIn();
             alert("Login succesful");
-            navigate("/dashboardbusiness");
+            navigate("/productimport");
         } catch (error) {
             console.error(error.response);
         }

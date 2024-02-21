@@ -10,30 +10,30 @@ function Mainuser() {
 
 const data = [
   {
-    category: 'Product Defects',
-    resolved: 25,
-    pending: 10,
+    category: 'Lotion',
+    Sales: 25,
+    Popularity: 30,
     total: 35,
   },
   {
     id: 2,
-    category: 'Service Dec.',
-    resolved: 15,
-    pending: 5,
+    category: 'Perfume.',
+    Sales: 15,
+ Popularity: 10,
     total:20
   },
   {
     id: 3,
-    category: 'Delivery Issues',
-    resolved: 20,
-    pending: 8,
+    category: 'Tea',
+    Sales: 20,
+    Popularity: 18,
     total: 28
   },
   {
     id: 4,
-    category: 'Customer Service',
-    resolved: 18,
-    pending: 12,
+    category: 'Phone case',
+   Sales: 18,
+   Popularity: 12,
     total: 30
   },
   // Add more categories as needed
@@ -41,86 +41,86 @@ const data = [
 const trendData = [
   {
     month: 'Jan',
-    category: 'Product Defects',
-    resolved: 25,
-    pending: 10,
+    category: 'Sungalsses',
+    Sales: 25,
+    Popularity: 20,
     total: 35,
   },
   {
     month: 'Feb',
     category: 'Product Defects',
-    resolved: 28,
-    pending: 8,
+    Sales: 28,
+    Popularity: 8,
     total: 36,
   },
   {
     month: 'Mar',
     category: 'Product Defects',
-    resolved: 30,
-    pending: 5,
+    Sales: 30,
+   Popularity: 5,
     total: 35,
   },
   {
     month: 'Jan',
-    category: 'Service Dec.',
-    resolved: 15,
-    pending: 5,
+   Category: 'Service Dec.',
+   Sales: 15,
+    Popularity: 5,
     total: 20,
   },
   {
     month: 'Feb',
-    category: 'Service Dec.',
-    resolved: 18,
-    pending: 7,
+   Category: 'Service Dec.',
+    Sales: 18,
+    Popularity: 7,
     total: 25,
   },
   {
     month: 'Mar',
-    category: 'Service Dec.',
-    resolved: 20,
+    Category: 'Service Dec.',
+    Sales: 20,
     pending: 4,
     total: 24,
   },
   {
     month: 'Jan',
-    category: 'Delivery Issues',
-    resolved: 20,
-    pending: 8,
+    category: 'Sunglasses',
+    Sales: 20,
+    Popularity: 18,
     total: 28,
   },
   {
     month: 'Feb',
     category: 'Delivery Issues',
-    resolved: 22,
-    pending: 6,
+    Sales: 22,
+    Popularity: 6,
     total: 28,
   },
   {
     month: 'Mar',
     category: 'Delivery Issues',
-    resolved: 25,
-    pending: 3,
+    Sales: 25,
+    Popularity: 3,
     total: 28,
   },
   {
     month: 'Jan',
     category: 'Customer Service',
-    resolved: 18,
-    pending: 12,
+    Sales: 18,
+    Popularity: 12,
     total: 30,
   },
   {
     month: 'Feb',
     category: 'Customer Service',
-    resolved: 20,
-    pending: 8,
+    Sales: 20,
+    Popularity: 18,
     total: 28,
   },
   {
     month: 'Mar',
     category: 'Customer Service',
-    resolved: 22,
-    pending: 6,
+    Sales: 22,
+    Popularity: 10,
     total: 28,
   },
   // Add more months and categories as needed
@@ -137,31 +137,31 @@ const trendData = [
         <div className='main-cards'>
             <div className='card'>
                 <div className='card-inner'>
-                    <h3>Total Sales</h3>
+                    <h3>Product Line</h3>
                     <BsFillArchiveFill className='card_icon'/>
                 </div>
-                <h1 className='hello'>121</h1>
+                <h1 className='hello'>Lotion</h1>
             </div>
             <div className='card'>
                 <div className='card-inner'>
-                    <h3>profit margins</h3>
+                    <h3>Unit Price</h3>
                     <BsFillGrid3X3GapFill className='card_icon'/>
                 </div>
-                <h1 className='hello'>90</h1>
+                <h1 className='hello'>60.07</h1>
             </div>
             <div className='card'>
                 <div className='card-inner'>
-                    <h3>Pending complaints</h3>
+                    <h3>Ratings</h3>
                     <BsPeopleFill className='card_icon'/>
                 </div>
-                <h1 className='hello'>31</h1>
+                <h1 className='hello'>8</h1>
             </div>
             <div className='card'>
                 <div className='card-inner'>
-                    <h3>Average Resolution Time</h3>
+                    <h3>Gross Income</h3>
                     <BsFillBellFill className='card_icon'/>
                 </div>
-                <h1 className='hello'>72 hours</h1>
+                <h1 className='hello'>123.948</h1>
             </div>
         </div>
 
@@ -183,8 +183,8 @@ const trendData = [
                 <YAxis />
                 <Tooltip />
                 <Legend />
-                <Bar dataKey="resolved" fill="#8884d8" />
-                <Bar dataKey="pending" fill="#82ca9d" />
+                <Bar dataKey="Sales" fill="#8884d8" />
+                <Bar dataKey="Popularity" fill="#82ca9d" />
                 </BarChart>
             </ResponsiveContainer>
 
@@ -205,8 +205,8 @@ const trendData = [
                 <YAxis />
                 <Tooltip />
                 <Legend />
-                <Line type="monotone" dataKey="resolved" stroke="#8884d8" activeDot={{ r: 8 }} />
-                <Line type="monotone" dataKey="pending" stroke="#82ca9d" />
+                <Line type="monotone" dataKey="Sales" stroke="#8884d8" activeDot={{ r: 8 }} />
+                <Line type="monotone" dataKey="Popularity" stroke="#82ca9d" />
                 </LineChart>
             </ResponsiveContainer>
 

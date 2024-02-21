@@ -62,7 +62,7 @@ function Sidebar({ openSidebarToggle, OpenSidebar }) {
         </li>
         <li className="sidebar-list-item">
           <Link to="/analytics">
-            <BsMenuButtonWideFill className="icon" /> Analytics Reports
+            <BsMenuButtonWideFill className="icon" /> Plannogram
           </Link>
         </li>
         <li className="sidebar-list-item">
