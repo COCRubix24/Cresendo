@@ -19,7 +19,7 @@ function Sidebar({ openSidebarToggle, OpenSidebar }) {
     >
       <div className="sidebar-title">
         <div className="sidebar-brand">
-          <FaUser className="icon_header" /> username
+          <FaUser className="icon_header" /> user
         </div>
         <span className="icon close_icon" onClick={OpenSidebar}>
           X
@@ -49,15 +49,15 @@ function Sidebar({ openSidebarToggle, OpenSidebar }) {
           </a>
         </li>
         <li className="sidebar-list-item">
-          <Link to="/Imageiput">
-            <BsListCheck className="icon" />
-            Margin and Season
-          </Link>
-        </li>
-        <li className="sidebar-list-item">
           <Link to="/seasonalAnalytics">
             <BsMenuButtonWideFill className="icon" />
             Seasonal Analytics
+          </Link>
+        </li>
+        <li className="sidebar-list-item">
+          <Link to="/Imageiput">
+            <BsListCheck className="icon" />
+            Examine Shelf
           </Link>
         </li>
         <li className="sidebar-list-item">
