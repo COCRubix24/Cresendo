@@ -16,17 +16,23 @@ function fileToGenerativePart(path) {
 
 export const extraction = async(req, res) => {
   try {
+    // const shelf1 = req.files.shelf1[0];
+    // const shelf2 = req.files.shelf2[0];
+    // console.log(shelf1, shelf2);
+    // console.log(req.files)
+    
     const model = genAI.getGenerativeModel({ model: "gemini-pro-vision" });
 
-    const prompt = `Retrieve all the informations from above image , return it in json format with following details ,if detail is not present insert NULL value. The attributes needed are : "merchant_name", "merchant_address", "merchant_phone", "merchant_website", "merchant_tax_reg_no", "merchant_company_reg_no", "region", "mall", "country", "receipt_no", "date", "time", "items with their corresponding prices" (an array of objects), "amount", "category", "description", "flags", "qty", "remarks", "tags", "currency","total", "subtotal", "tax", "service_charge", "payment_method", "payment_details"`;
+    const prompt = 'Give all the wrong structures present or harmful product at top which may cause bad impression to user, and see which product should be where for better retail shelf optimization. Also suggest the shelf changes if you have any .Keep it to the point consise and dont divert it. Strictly give in a single paragraph without any newline or bullet points etc, strictly dont include newline only one paragraph without any special symbols';
 
-    const imageParts = [fileToGenerativePart("D:/zzzzzzz/Rubix24_COC/backend/controllers/receipt.jpg")];
+    const imageParts = [fileToGenerativePart("D:/zzzzzzz/Cresendo/backend/shelf1.JPG"), fileToGenerativePart("D:/zzzzzzz/Cresendo/backend/shelf2.JPG")];
 
     const result = await model.generateContent([prompt, ...imageParts]);
     const response = await result.response;
     const text = response.text();
+    console.log(text);
 
-    res.json({ generatedContent: text });
+    res.json({ data : text });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal Server Error" });

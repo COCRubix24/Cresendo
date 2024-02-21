@@ -6,7 +6,7 @@ import cors from "cors";
 
 import authRoute from "./routes/auth.js";
 import usersRoute from "./routes/users.js";
-import ocrRoute from "./routes/ocrAI.js";
+import shelfRoute from "./routes/ocrAI.js";
 import excelRouter from "./routes/getExcelData.js";
 
 const app = express();
@@ -27,8 +27,6 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
-
-
 
 const connect = async () => {
     try {
@@ -62,7 +60,7 @@ app.use(fileUpload({ useTempFiles: true }));
 // routes
 app.use("/api/auth", authRoute);
 app.use("/api/users", usersRoute);
-app.use("/api/ocr", ocrRoute);
+app.use("/api/shelf", shelfRoute);
 app.use("/api/excel", excelRouter);
 
 app.use((err, req, res, next) => {

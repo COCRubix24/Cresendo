@@ -28,6 +28,7 @@ import ReportPage from "./Pages/ReportPage.jsx";
 import PopularAnalysisPage from "./Pages/PopularAnalysisPage.jsx";
 import MarginPage from "./Pages/Login/dashboard for buiness/MarginPage.js"
 import SeasonalAnalyticsPage from "./Pages/SeasonalAnalyticsPage.jsx";
+import Salesm from "./Pages/Login/dashboard for buiness/Salesm.js";
 
 
 function App() {
@@ -52,7 +53,8 @@ function App() {
                             element={<DisplayCaseDetailsPage />}
                         /> */}
                         <Route path="/thanks" element={<Thanks />} />
-                       
+                        <Route path="/sales" element={<Salesm />} />
+
                        
                         <Route path="/productimport" element={<ProductPage/>} />
                        

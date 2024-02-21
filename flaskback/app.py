@@ -15,52 +15,6 @@ CORS(app)
 
 genai.configure(api_key=os.getenv("API_KEY"))
 
-safety_settings = [
-    {
-        "category": "HARM_CATEGORY_DANGEROUS",
-        "threshold": "BLOCK_NONE",
-    },
-    {
-        "category": "HARM_CATEGORY_HARASSMENT",
-        "threshold": "BLOCK_NONE",
-    },
-    {
-        "category": "HARM_CATEGORY_HATE_SPEECH",
-        "threshold": "BLOCK_NONE",
-    },
-    {
-        "category": "HARM_CATEGORY_SEXUALLY_EXPLICIT",
-        "threshold": "BLOCK_NONE",
-    },
-    {
-        "category": "HARM_CATEGORY_DANGEROUS_CONTENT",
-        "threshold": "BLOCK_NONE",
-    },
-]
-
-
-def get_gemini_response(input, image, prompt):
-    model = genai.GenerativeModel(
-        'gemini-pro-vision', safety_settings=safety_settings)
-    response = model.generate_content([input, image[0], prompt])
-    return response.text
-
-
-def input_image_setup(ipfs_link):
-    response = requests.get(ipfs_link)
-    if response.status_code == 200:
-        bytes_data = response.content
-        image_parts = [
-            {
-                "mime_type": "image/jpeg",
-                "data": bytes_data
-            }
-        ]
-        return image_parts
-    else:
-        raise FileNotFoundError("Failed to fetch image data from IPFS")
-
-
 
 '''
 all popularity
@@ -216,42 +170,94 @@ def seasonal_product_stats():
 
     return result_json
 
-@app.route('/shelfGuide/', methods=['POST'])
+safety_settings = [
+    {
+        "category": "HARM_CATEGORY_DANGEROUS",
+        "threshold": "BLOCK_NONE",
+    },
+    {
+        "category": "HARM_CATEGORY_HARASSMENT",
+        "threshold": "BLOCK_NONE",
+    },
+    {
+        "category": "HARM_CATEGORY_HATE_SPEECH",
+        "threshold": "BLOCK_NONE",
+    },
+    {
+        "category": "HARM_CATEGORY_SEXUALLY_EXPLICIT",
+        "threshold": "BLOCK_NONE",
+    },
+    {
+        "category": "HARM_CATEGORY_DANGEROUS_CONTENT",
+        "threshold": "BLOCK_NONE",
+    },
+]
+
+
+def get_gemini_response(input, image_data1, image_data2, prompt):
+    model = genai.GenerativeModel(
+        'gemini-pro-vision', safety_settings=safety_settings)
+    response = model.generate_content([input,  prompt])
+    print(response)
+    return response.text
+
+
+def input_image_setup(ipfs_link):
+    response = requests.get(ipfs_link)
+    if response.status_code == 200:
+        bytes_data = response.content
+        image_parts = [
+            {
+                "mime_type": "image/jpeg",
+                "data": bytes_data
+            }
+        ]
+        return image_parts
+    else:
+        raise FileNotFoundError("Failed to fetch image data from IPFS")
+
+
+@app.route('/shelfAnalyze/', methods=['POST'])
 def generate_content():
-    print(request.json)
+    # print(request.json)
     # input_prompt = request.json['input']
     # depts = request.json.get('depts', '')
     # image_data = input_image_setup(request.json['pinataIPFS'])
     data = request.json
+    # input_prompt = ""
     input_prompt = data.get(
         'input', 'Give all the wrong structures present or harmful product at top which may cause bad impression to user, and see which product should be where for better retail shelf optimization. Also suggest the shelf changes if you have any .Keep it to the point consise and dont divert it.')
     
     image = data.get(
-        'pinataIPFS', '[{"key":"pinataIPFS","value":"https://ipfs.io/ipfs/QmWcwrMBCYEFUotUogeFVgYj5ACWE9GrLQ3r5a81Pjhu3x","description":"","type":"text","enabled":true}]')
-    image_data = input_image_setup("https://ipfs.io/ipfs/" + image)
+        'pinataIPFS', ["https://ipfs.io/ipfs/Qmd9dheh1W2zdzWHskpdvMUMxfGqACokUtC1q2BtqFfkPk", "https://ipfs.io/ipfs/QmbfZqbjtAMCbBQoBhRzAaweDd92JdG8YdiFBr4fnnzbsZ"])
+    # image = ["https://ipfs.io/ipfs/Qmd9dheh1W2zdzWHskpdvMUMxfGqACokUtC1q2BtqFfkPk", "https://ipfs.io/ipfs/QmbfZqbjtAMCbBQoBhRzAaweDd92JdG8YdiFBr4fnnzbsZ"]
+    print(image)
+    image_data1 = input_image_setup(image[0])
+    image_data2 = input_image_setup(image[1])
 
     # print(image_data)
     predefined_text = (
-        'Give all the wrong structures present or harmful product at top which may cause bad impression to user, and see which product should be where for better retail shelf optimization. Also suggest the shelf changes if you have any .Keep it to the point consise and dont divert it.')
-
+        'Give all the wrong structures present or harmful product at top which may cause bad impression to user, and see which product should be where for better retail shelf optimization. Also suggest the shelf changes if you have any .Keep it to the point consise and dont divert it. Strictly give in a single paragraph without any newline or bullet points etc')
+    print(1)
+    # print(image)
     try:
         response = get_gemini_response(
-            input_prompt, image_data, predefined_text)
+            input_prompt, image_data1, image_data2, predefined_text)
         print(response)
 
         # Assuming response is a string separated by semicolons
-        parts = [part.strip() for part in response.split(';')]
-        # Assuming the first part is deptSelected and the second part is keywords
-        dept_selected = parts[0].replace("deptSelected:", "").strip()
-        keywords = parts[1].replace("keywords:", "").strip()
+        # parts = [part.strip() for part in response.split(';')]
+        # # Assuming the first part is deptSelected and the second part is keywords
+        # dept_selected = parts[0].replace("deptSelected:", "").strip()
+        # keywords = parts[1].replace("keywords:", "").strip()
 
-        # Assuming the first part is deptSelected and the second part is keywords
-        result = {"deptSelected": dept_selected, "keywords": keywords}
+        # # Assuming the first part is deptSelected and the second part is keywords
+        # result = {"deptSelected": dept_selected, "keywords": keywords}
 
-        return jsonify({"result": result})
+        return jsonify({"result": response})
 
     except Exception as e:
-        print(e)
+        # print(e)
         return jsonify({"error": str(e)}), 500
 
 if __name__ == '__main__':
